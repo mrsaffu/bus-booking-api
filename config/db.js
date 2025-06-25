@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
+require('dotenv').config()
 
-const url = "mongodb://localhost:27017/Bus_Db"
+const url = process.env.MONGODB_URL
 mongoose.connect(url, {
     useNewUrlParser: true, 
     useUnifiedTopology: true
