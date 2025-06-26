@@ -1,10 +1,11 @@
+const { generateToken } = require("../middlewares/jwt.middlewares");
 const User = require("../models/Users");
 const { hashData, compareData } = require("../utils/encrypData");
 
-const { generateAccessToken } = require("../utils/token");
+const { generateAccessToken, generateRefreshToken } = require("../utils/token");
 
 
-// ! User register 
+// ! User register / singup 
 const register = async (req, res) => {
     try {
         const { name, email, password, conform_password, role } = req.body;
@@ -24,7 +25,15 @@ const register = async (req, res) => {
         const newUser = await User.create({ name, email, password: hashedPassword, role })
         // const response = await newUser.save()
         console.log('User registered successfully');
-        res.status(200).json({ message: "User registered successfully", data: newUser })
+
+        // const payload = {
+        //     id: newUser.id,
+        //     email: newUser.email
+        // }
+        // console.log(JSON.stringify(payload));
+        // const token = generateToken(payload)
+        // console.log("Token is :", token);
+        res.status(200).json({ message: "User registered successfully", data: newUser})
 
 
     } catch (err) {
@@ -50,6 +59,8 @@ const login = async (req, res) => {
             return res.status(400).json({ error: true, message: "Password invalid please check the password ..!" })
         }
 
+
+
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
 
@@ -68,6 +79,16 @@ const login = async (req, res) => {
             accessToken,
 
         });
+
+
+        // generate Token
+        // const payload = {
+        //     id: user.id,
+        //     email: user.email,
+
+        // }
+        // const token = generateToken(payload)
+        // res.status(200).json({ message: 'Login sucessfully', token: token })
     } catch (err) {
         console.log(err);
         res.status(500).json({ error: "Internal server error" })
@@ -75,9 +96,27 @@ const login = async (req, res) => {
     }
 }
 
+// referesh token
+const refresh = async (req, res) => {
+    const token = req.cookies.refreshToken;
+    if (!token) return res.status(401).json({ message: 'No token' });
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+        const user = await User.findById(decoded.id);
+        if (!user || user.refreshToken !== token) return res.status(403).json({ message: 'Invalid refresh token' });
+
+        const newAccessToken = generateAccessToken(user);
+        res.json({ accessToken: newAccessToken });
+    } catch (err) {
+        res.status(403).json({ message: 'Token expired or invalid' });
+    }
+};
+
 
 
 module.exports = {
     register,
-    login
+    login,
+    refresh
 }

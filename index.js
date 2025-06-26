@@ -1,17 +1,33 @@
-const express = require('express')
-require('dotenv').config()
-const app = express()
-app.use(express.json())
-const db = require('./config/db')
-const authRoutes = require('./routes/auth.routes')
-const PORT = process.env.PORT || 3000
-app.get('/', (req, res) => {
-    res.send("Welcome you on Bus App")
-})
+const express = require('express');
+require('dotenv').config();
+const app = express();
 
-app.use('/api/auth', authRoutes)
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
-app.listen(PORT, (err) => {
-    if (err) throw err;
-    console.log("Server is running on 3000");
-})
+app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
+
+const authRoutes = require('./routes/auth.routes');
+const adminRoutes = require('./routes/admin.routes');
+const userRoutes = require('./routes/user.routes');
+
+// Root route
+app.get('/api', (req, res) => {
+  res.json({ message: ' Bus Booking API is live' });
+});
+
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/user', userRoutes);
+
+
+// DB connection
+require('./config/db');
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(` Server is running on port ${PORT}`);
+});
