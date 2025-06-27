@@ -1,23 +1,27 @@
-const mongoose = require('mongoose')
-require('dotenv').config()
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-const url = process.env.MONGODB_URL
-mongoose.connect(url, {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true
-})
+const url = process.env.MONGODB_URL;
 
-const db = mongoose.connection
-db.on('connected', () => {
-    console.log("Connected to MongoDb Server");
-})
+const connectDB = async () => {
+  console.log("Inside connectDB, MONGODB_URL =", url);
 
-db.on('error', (err) => {
-    console.error('MongoDb Connected Error: ', err)
-})
+  if (!url) {
+    throw new Error("MONGODB_URL is not defined in environment variables");
+  }
 
-db.on('disconnected', () => {
-    console.log('MongoDb Disconnected');
-})
+  try {
+    console.log("Trying to connect to MongoDB...");
+    await mongoose.connect(url);
+    console.log("Connected to MongoDB Server");
 
-module.exports = db;
+    mongoose.connection.on('disconnected', () => {
+      console.log('MongoDB Disconnected');
+    });
+  } catch (err) {
+    console.error("MongoDB connection failed:", err.message);
+    throw err;
+  }
+};
+
+module.exports = connectDB;
