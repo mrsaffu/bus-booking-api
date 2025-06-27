@@ -1,147 +1,318 @@
 {
-    "info": {
-        "name": "Bus Booking System API",
-        "_postman_id": "bus-booking-system-api-20250627202320",
-        "description": "Postman collection for testing the Bus Booking System API endpoints.",
-        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-    },
-    "item": [
+  "info": {
+    "name": "Bus Booking System API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "b5c12952-53b3-41a9-bb3f-20250627211813"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
         {
-            "name": "User Registration",
-            "request": {
-                "method": "POST",
-                "header": [
-                    {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                    }
-                ],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\n    \"name\": \"Safwan\",\n    \"email\": \"safwan@example.com\",\n    \"password\": \"123456\"\n}"
-                },
-                "url": {
-                    "raw": "http://localhost:3000/api/auth/register",
-                    "host": [
-                        "localhost"
-                    ],
-                    "port": "3000",
-                    "path": [
-                        "api",
-                        "auth",
-                        "register"
-                    ]
-                }
+          "name": "Signup",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/auth/singup",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "singup"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
             }
+          }
         },
         {
-            "name": "User Login",
-            "request": {
-                "method": "POST",
-                "header": [
-                    {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                    }
-                ],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\n    \"email\": \"safwan@example.com\",\n    \"password\": \"123456\"\n}"
-                },
-                "url": {
-                    "raw": "http://localhost:3000/api/auth/login",
-                    "host": [
-                        "localhost"
-                    ],
-                    "port": "3000",
-                    "path": [
-                        "api",
-                        "auth",
-                        "login"
-                    ]
-                }
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
             }
+          }
         },
         {
-            "name": "Get All Users (Admin)",
-            "request": {
-                "method": "GET",
-                "header": [
-                    {
-                        "key": "Authorization",
-                        "value": "Bearer <token>"
-                    }
-                ],
-                "url": {
-                    "raw": "http://localhost:3000/api/admin/users",
-                    "host": [
-                        "localhost"
-                    ],
-                    "port": "3000",
-                    "path": [
-                        "api",
-                        "admin",
-                        "users"
-                    ]
-                }
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/auth/refresh",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "refresh"
+              ]
             }
-        },
-        {
-            "name": "Create Booking (User)",
-            "request": {
-                "method": "POST",
-                "header": [
-                    {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                    },
-                    {
-                        "key": "Authorization",
-                        "value": "Bearer <token>"
-                    }
-                ],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{\n    \"busId\": \"BUS123\",\n    \"seats\": 2,\n    \"date\": \"2025-07-01\"\n}"
-                },
-                "url": {
-                    "raw": "http://localhost:3000/api/user/bookings",
-                    "host": [
-                        "localhost"
-                    ],
-                    "port": "3000",
-                    "path": [
-                        "api",
-                        "user",
-                        "bookings"
-                    ]
-                }
-            }
-        },
-        {
-            "name": "Cancel Booking (User)",
-            "request": {
-                "method": "DELETE",
-                "header": [
-                    {
-                        "key": "Authorization",
-                        "value": "Bearer <token>"
-                    }
-                ],
-                "url": {
-                    "raw": "http://localhost:3000/api/user/bookings/BOOKING_ID",
-                    "host": [
-                        "localhost"
-                    ],
-                    "port": "3000",
-                    "path": [
-                        "api",
-                        "user",
-                        "bookings",
-                        "BOOKING_ID"
-                    ]
-                }
-            }
+          }
         }
-    ]
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Add Bus",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <admin_token>"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/admin/bus",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "admin",
+                "bus"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bus A\",\n  \"source\": \"City A\",\n  \"destination\": \"City B\",\n  \"departureTime\": \"2025-07-01T10:00:00Z\",\n  \"arrivalTime\": \"2025-07-01T14:00:00Z\",\n  \"seats\": 40\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Bus",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <admin_token>"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/admin/bus/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "admin",
+                "bus",
+                ":id"
+              ],
+              "protocol": "http"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Bus A\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Bus Route",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <admin_token>"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/admin/bus/:id/route",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "admin",
+                "bus",
+                ":id",
+                "route"
+              ],
+              "protocol": "http"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"route\": \"New Route\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Search Buses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/user/search",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "user",
+                "search"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Book Bus",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/user/book",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "user",
+                "book"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"busId\": \"bus_id_here\",\n  \"seats\": [\n    1,\n    2\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Get User Bookings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/user/bookings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "user",
+                "bookings"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cancel Booking",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/user/cancel/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "user",
+                "cancel",
+                ":id"
+              ],
+              "protocol": "http"
+            }
+          }
+        }
+      ]
+    }
+  ]
 }
