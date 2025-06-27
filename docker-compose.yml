@@ -15,12 +15,13 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - MONGO_URI=mongodb://mongo:27017/busbooking
+      - MONGODB_URL=mongodb://mongo:27017/busbooking
+      - PORT=3000
       - JWT_SECRET=alex4532
       - JWT_REFRESH_SECRET=alex45321
-      - PORT=3000
     depends_on:
       - mongo
+    restart: always
 
 volumes:
   mongo_data:
