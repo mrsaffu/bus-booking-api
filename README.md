@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Bus Booking System API allows users to register, log in, book bus tickets, view their bookings, and provides admin-level functionality for managing buses and viewing all bookings.
+The Bus Booking System API allows users to register, log in, book bus tickets, view their bookings, and provides admin-level functionality for managing buses and routes.
 
 ---
 
@@ -16,7 +16,7 @@ http://localhost:3000/api
 
 ## Authentication Routes
 
-### POST /auth/register
+### POST /auth/singup
 
 **Description:** Register a new user.
 
@@ -68,22 +68,23 @@ http://localhost:3000/api
 }
 ```
 
-### POST /auth/logout
+### POST /auth/refresh
 
-**Description:** Logout and invalidate the session.
+**Description:** Generate new access token using refresh token.
 
-**Headers:**
+**Request Body:**
 
-```
-Authorization: Bearer <accessToken>
+```json
+{
+  "refreshToken": "your_refresh_token"
+}
 ```
 
 **Response:**
 
 ```json
 {
-  "success": true,
-  "message": "User logged out successfully"
+  "accessToken": "new_access_token"
 }
 ```
 
@@ -91,9 +92,42 @@ Authorization: Bearer <accessToken>
 
 ## User Routes
 
+### GET /user/search
+
+**Description:** Search available buses.
+
+**Headers:**
+
+```
+Authorization: Bearer <accessToken>
+```
+
+**Query Parameters:**
+
+```
+source=CityA&destination=CityB
+```
+
+**Response:**
+
+```json
+[
+  {
+    "_id": "bus_id",
+    "name": "Bus A",
+    "source": "City A",
+    "destination": "City B",
+    "departureTime": "2025-07-01T10:00:00Z",
+    "arrivalTime": "2025-07-01T14:00:00Z",
+    "seats": 40,
+    "bookedSeats": [1, 2]
+  }
+]
+```
+
 ### POST /user/book
 
-**Description:** Book one or more seats for a specific bus.
+**Description:** Book seats on a bus.
 
 **Headers:**
 
@@ -125,9 +159,28 @@ Authorization: Bearer <accessToken>
 }
 ```
 
+### DELETE /user/cancel/\:id
+
+**Description:** Cancel a booking.
+
+**Headers:**
+
+```
+Authorization: Bearer <accessToken>
+```
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "message": "Booking cancelled successfully"
+}
+```
+
 ### GET /user/bookings
 
-**Description:** Retrieve all bookings for the currently logged-in user.
+**Description:** View all bookings for the logged-in user.
 
 **Headers:**
 
@@ -148,32 +201,13 @@ Authorization: Bearer <accessToken>
 ]
 ```
 
-### DELETE /user/cancel/\:bookingId
-
-**Description:** Cancel a specific booking made by the user.
-
-**Headers:**
-
-```
-Authorization: Bearer <accessToken>
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "message": "Booking cancelled successfully"
-}
-```
-
 ---
 
 ## Admin Routes
 
-### POST /admin/add-bus
+### POST /admin/bus
 
-**Description:** Add a new bus to the system.
+**Description:** Add a new bus.
 
 **Headers:**
 
@@ -194,25 +228,9 @@ Authorization: Bearer <adminAccessToken>
 }
 ```
 
-**Response:**
+### PUT /admin/bus/\:id
 
-```json
-{
-  "success": true,
-  "message": "Bus added successfully",
-  "bus": {
-    "_id": "bus_id",
-    "name": "Bus A",
-    "source": "City A",
-    "destination": "City B",
-    "seats": 40
-  }
-}
-```
-
-### GET /admin/bookings
-
-**Description:** View all user bookings in the system.
+**Description:** Update bus details.
 
 **Headers:**
 
@@ -220,23 +238,18 @@ Authorization: Bearer <adminAccessToken>
 Authorization: Bearer <adminAccessToken>
 ```
 
-**Response:**
+**Request Body (example):**
 
 ```json
-[
-  {
-    "_id": "booking_id",
-    "user": "john@example.com",
-    "busId": "bus_id",
-    "seats": [1, 2],
-    "status": "confirmed"
-  }
-]
+{
+  "name": "Bus A Updated",
+  "seats": 50
+}
 ```
 
-### DELETE /admin/delete-bus/\:busId
+### PUT /admin/bus/\:id/route
 
-**Description:** Remove a bus from the system.
+**Description:** Update the route of the bus.
 
 **Headers:**
 
@@ -244,14 +257,18 @@ Authorization: Bearer <adminAccessToken>
 Authorization: Bearer <adminAccessToken>
 ```
 
-**Response:**
+**Request Body (example):**
 
 ```json
 {
-  "success": true,
-  "message": "Bus deleted successfully"
+  "source": "City A",
+  "destination": "City B"
 }
 ```
+
+---
+
+
 
 ---
 
@@ -321,19 +338,21 @@ This collection includes all endpoints pre-configured with sample request bodies
 
   ```bash
   docker-compose up --build
-  ```
-* Access API at:
+````
+
+- Access API at:
 
   ```
   http://localhost:3000/api
   ```
-* Ensure MongoDB is running and available at the hostname you configured (e.g., `mongo`).
+
+- Ensure MongoDB is running and available at the hostname you configured (e.g., `mongo`).
 
 ---
 
 ## Additional Notes
 
-* All datetime fields must be in ISO 8601 format.
-* Use `Authorization: Bearer <token>` for all protected endpoints.
-* Proper error messages and status codes are returned for each API failure.
-* Admin role is required for all admin-related endpoints.
+- All datetime fields must be in ISO 8601 format.
+- Use `Authorization: Bearer <token>` for all protected endpoints.
+- Proper error messages and status codes are returned for each API failure.
+- Admin role is required for all admin-related endpoints.

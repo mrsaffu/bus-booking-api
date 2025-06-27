@@ -33,7 +33,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"John\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+              "raw": "{\n  \"name\": \"John\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n \"conform_password\": \"password123\"\n}"
             }
           }
         },
