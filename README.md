@@ -414,15 +414,7 @@ This collection includes all endpoints pre-configured with sample request bodies
 - Import `postman_collection.json` into Postman.
 - Test all endpoints using provided sample bodies and tokens.
 
-## Contact Information
 
-**Name:** Safwan Ahmad  
-**Role:** Full Stack Developer  
-**GitHub:** https://github.com/mrsaffu  
-**Email:** ahmadsafwan034@gmail.com  
-**LinkedIn:** https://www.linkedin.com/in/safwanahmad-dev/  
-**Phone:** +91-9546948075  
-If you're reviewing this project for an interview or evaluation, feel free to reach out for any queries or a walkthrough. I’m open to connect, discuss the project in detail, or collaborate further.
 
 ## Hosted URL (AWS)
 
@@ -448,3 +440,15 @@ Make sure the following ports are open in your AWS security group:
 - Status codes and sample responses are provided in the main README
 
 Feel free to explore, run, or extend the project as needed. Feedback and suggestions are welcome.
+
+
+---
+## Contact Information
+
+**Name:** Safwan Ahmad  
+**Role:** Full Stack Developer  
+**GitHub:** https://github.com/mrsaffu  
+**Email:** ahmadsafwan034@gmail.com  
+**LinkedIn:** https://www.linkedin.com/in/safwanahmad-dev/  
+**Phone:** +91-9546948075  
+If you're reviewing this project for an interview or evaluation, feel free to reach out for any queries or a walkthrough. I’m open to connect, discuss the project in detail, or collaborate further.
