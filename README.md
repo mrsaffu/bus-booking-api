@@ -338,7 +338,8 @@ This collection includes all endpoints pre-configured with sample request bodies
 
   ```bash
   docker-compose up --build
-````
+---
+
 
 - Access API at:
 
@@ -356,3 +357,68 @@ This collection includes all endpoints pre-configured with sample request bodies
 - Use `Authorization: Bearer <token>` for all protected endpoints.
 - Proper error messages and status codes are returned for each API failure.
 - Admin role is required for all admin-related endpoints.
+
+---
+
+
+---
+
+### Local Setup (Without Docker)
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/mrsaffu/bus-booking-api.git
+   cd BUS_BOOKING-SYSTEM_API
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env` file and add:
+
+   ```env
+   PORT=3000
+   MONGODB_URI=your_mongodb_connection_string
+   ACCESS_TOKEN_SECRET=your_access_token_secret
+   REFRESH_TOKEN_SECRET=your_refresh_token_secret
+   ```
+
+4. Start the server:
+
+   ```bash
+   npm start
+   ```
+
+5. API is live at: `http://localhost:3000/api`
+
+### Docker Setup
+
+1. Make sure Docker and Docker Compose are installed.
+
+2. Run the app using:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+3. The API will be available at: `http://localhost:3000/api`
+
+4. Ensure MongoDB is accessible via the correct hostname (e.g., `mongo`).
+
+### Using Postman
+
+- Import `postman_collection.json` into Postman.
+- Test all endpoints using provided sample bodies and tokens.
+
+## Contact Information
+
+**Name:** Safwan Ahmad  
+**Role:** Full Stack Developer  
+**GitHub:** https://github.com/mrsaffu  
+**Email:** ahmadsafwan034@gmail.com  
+**LinkedIn:** https://www.linkedin.com/in/safwanahmad-dev/  
+**Phone:** +91-9546948075  
