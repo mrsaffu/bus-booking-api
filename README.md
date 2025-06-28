@@ -422,3 +422,29 @@ This collection includes all endpoints pre-configured with sample request bodies
 **Email:** ahmadsafwan034@gmail.com  
 **LinkedIn:** https://www.linkedin.com/in/safwanahmad-dev/  
 **Phone:** +91-9546948075  
+If you're reviewing this project for an interview or evaluation, feel free to reach out for any queries or a walkthrough. I’m open to connect, discuss the project in detail, or collaborate further.
+
+## Hosted URL (AWS)
+
+This project is also deployed and accessible via AWS:
+
+**Live API URL:**
+```
+http://13.203.222.74:3000/api
+```
+
+> Replace the above URL with your actual EC2 public IP or domain (e.g., `http://ec2-13-232-XXX-XXX.ap-south-1.compute.amazonaws.com/api`).
+
+Make sure the following ports are open in your AWS security group:
+- 3000 (for Node.js backend)
+- 27017 (optional, for MongoDB access if running on the same instance)
+
+
+## Final Notes
+
+- Use `Authorization: Bearer <token>` for protected routes
+- Admin privileges are required for `/admin` endpoints
+- Datetime fields follow ISO 8601 standard
+- Status codes and sample responses are provided in the main README
+
+Feel free to explore, run, or extend the project as needed. Feedback and suggestions are welcome.
